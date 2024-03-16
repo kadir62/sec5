@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c --watch",
+    "build": "node bin/sec5.js && rollup -c",
+    "build.force": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.28",
+    "rollup": "^4.13.0",
+    "tslib": "^2.6.2"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "glob": "^10.3.10"
+  }
+}
