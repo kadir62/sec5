@@ -16,6 +16,10 @@
 > <br>
 > This project is under BETA release right now. Some features will be removed, changed or added.
 
+## Documentation
+
+Full documentation is available at [sec5.vercel.app](https://sec5.vercel.app/)
+
 ## License
 
 [The MIT License (MIT)](./LICENSE)
