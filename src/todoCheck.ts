@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import error from './log/error'
 import warn from './log/warn'
+import info from './log/info'
 
 const config = resolveConfig()
 const gitignore = fs.readFileSync(path.resolve(process.cwd(), '.gitignore'))
@@ -41,10 +42,14 @@ export default function todoCheck() {
       }
     }
   })
-  if (config?.allowTodo == true) {
-    warn(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
+  if (todoList.length > 0) {
+    if (config?.allowTodo == true) {
+      warn(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
+    } else {
+      error(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
+      process.exit(1)
+    }
   } else {
-    error(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
-    process.exit(1)
+    info('No TODOs found.')
   }
 }

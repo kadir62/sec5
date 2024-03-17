@@ -24,7 +24,7 @@ const packageJson = (
 
 const config = resolveConfig()
 
-const allowNoVersion = config?.allowNoVersion
+const allowNonWritedChangelog = config?.allowNonWritedChangelog
 
 function findMarkdownHeaders(filePath: string = file): string[] {
   const headers: string[] = []
@@ -55,7 +55,7 @@ export default function compareVersions() {
   // Because `0` is [Unreleased]
   const version = getVersion(headers[1])
   if (version !== packageJson.version) {
-    if (allowNoVersion) {
+    if (allowNonWritedChangelog) {
       warn(
         `The package.json version and last CHANGELOG version are not same. package.json: ${packageJson.version} changelog: ${version}`
       )
