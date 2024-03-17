@@ -26,20 +26,6 @@ const config = resolveConfig()
 
 const allowNonWritedChangelog = config?.allowNonWritedChangelog
 
-function findMarkdownHeaders(filePath: string = file): string[] {
-  const headers: string[] = []
-  const regex = /^##\s+(.+)/gm
-
-  const fileContent = fs.readFileSync(filePath, 'utf-8')
-
-  let match
-  while ((match = regex.exec(fileContent)) !== null) {
-    headers.push(match[0])
-  }
-
-  return headers
-}
-
 function getVersion(header: string): string {
   return header
     .split('-')[0]
@@ -49,23 +35,48 @@ function getVersion(header: string): string {
     .trim()
 }
 
+function findMarkdownHeader(filePath: string = file): string {
+  const regex = /^(##\s+.+)$/m
+  const fileContent = fs.readFileSync(filePath, 'utf-8')
+  const match = regex.exec(fileContent)
+
+  if (!match) {
+    error('No markdown header found.')
+    process.exit(1)
+  }
+
+  let header = match[1]
+
+  if (header.includes('[Unreleased]')) {
+    const nextMatch = regex.exec(
+      fileContent.slice(match.index + match[0].length)
+    )
+    if (nextMatch) {
+      header = nextMatch[1]
+    } else {
+      error('No next markdown header found after "Unreleased".')
+      process.exit(1)
+    }
+  }
+
+  return header
+}
+
 export default function compareVersions() {
-  const headers = findMarkdownHeaders(file)
-  // ? Why not `0`
-  // Because `0` is [Unreleased]
-  const version = getVersion(headers[1])
+  const header = findMarkdownHeader(file)
+  const version = getVersion(header)
   if (version !== packageJson.version) {
     if (allowNonWritedChangelog) {
       warn(
-        `The package.json version and last CHANGELOG version are not same. package.json: ${packageJson.version} changelog: ${version}`
+        `The package.json version and last CHANGELOG version are not the same. package.json: ${packageJson.version} changelog: ${version}`
       )
     } else {
       error(
-        `The package.json version and last CHANGELOG version are not same. package.json: ${packageJson.version} changelog: ${version}`
+        `The package.json version and last CHANGELOG version are not the same. package.json: ${packageJson.version} changelog: ${version}`
       )
       process.exit(1)
     }
   } else {
-    info('CHANGELOG.md and package.json version matches.')
+    info('CHANGELOG.md and package.json version match.')
   }
 }
