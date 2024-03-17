@@ -4,5 +4,6 @@ export default {
    * The number of TODOs should not exceed 2.
    */
   allowTodo: true,
-  allowNonWritedChangelog: false
+  allowNonWritedChangelog: false,
+  allowNoVersion: false
 }
