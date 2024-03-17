@@ -4,6 +4,7 @@ import fileToPath from './utils/fileToPath'
 import resolveConfig from './config/resolveConfig'
 import warn from './log/warn'
 import error from './log/error'
+import info from './log/info'
 
 const pattern = ['changelog.md', 'CHANGELOG.md']
 
@@ -64,5 +65,7 @@ export default function compareVersions() {
       )
       process.exit(1)
     }
+  } else {
+    info('CHANGELOG.md and package.json version matches.')
   }
 }
