@@ -1,6 +1,5 @@
 import error from './log/error'
 import warn from './log/warn'
-import info from './log/info'
 import resolveConfig from './config/resolveConfig'
 import fileToPath from './utils/fileToPath'
 
