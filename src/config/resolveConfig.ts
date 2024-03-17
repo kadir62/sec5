@@ -5,6 +5,7 @@ import warn from '../log/warn'
 export type Config = {
   allowNonWritedChangelog: boolean
   allowTodo: boolean
+  allowNoVersion: boolean
 }
 
 const pattern = [
