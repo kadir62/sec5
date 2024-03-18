@@ -1,4 +1,4 @@
-import { exec } from 'child_process'
+import { exec } from 'node:child_process'
 import warn from './log/warn'
 import info from './log/info'
 import error from './log/error'
