@@ -6,6 +6,7 @@ export type Config = {
   allowNonWritedChangelog: boolean
   allowTodo: boolean
   allowNoVersion: boolean
+  allowNoFormat: boolean
 }
 
 const pattern = [

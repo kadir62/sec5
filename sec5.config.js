@@ -5,5 +5,6 @@ export default {
    */
   allowTodo: true,
   allowNonWritedChangelog: false,
-  allowNoVersion: false
+  allowNoVersion: false,
+  allowNoFormat: false
 }
