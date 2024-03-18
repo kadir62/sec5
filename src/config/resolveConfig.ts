@@ -4,9 +4,10 @@ import warn from '../log/warn'
 
 export type Config = {
   allowNonWritedChangelog: boolean
-  allowTodo: boolean
+  allowComments: boolean
   allowNoVersion: boolean
   allowNoFormat: boolean
+  allowFixMe: boolean
 }
 
 const pattern = [

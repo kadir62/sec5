@@ -1,9 +1,9 @@
-import todoCheck from './todoCheck'
+import check from './check'
 import compareVersions from './changelog'
 import versionCheck from './versionCheck'
 import prettierCheck from './prettier'
 
-todoCheck()
 compareVersions()
 versionCheck()
 prettierCheck()
+check()

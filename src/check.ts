@@ -8,6 +8,8 @@ import info from './log/info'
 const config = resolveConfig()
 const gitignore = fs.readFileSync(path.resolve(process.cwd(), '.gitignore'))
 
+const comments = { todo: '// TODO', fixme: '// FIXME', bug: '// BUG' }
+
 function readdir(dirPath: string, fileList: string[] = []): string[] {
   const files = fs.readdirSync(dirPath)
   files.forEach((file) => {
@@ -26,9 +28,9 @@ function readdir(dirPath: string, fileList: string[] = []): string[] {
   return fileList
 }
 
-export default function todoCheck() {
+export default function check() {
   const files = readdir(process.cwd())
-  const todoList: string[] = []
+  const bugList: string[] = []
   files.forEach((file) => {
     if (
       file.endsWith('.ts') ||
@@ -37,19 +39,25 @@ export default function todoCheck() {
       file.endsWith('.jsx')
     ) {
       const content = fs.readFileSync(file, 'utf-8')
-      if (content.includes('// TODO')) {
-        todoList.push(file)
+      if (
+        content.includes(comments.todo) ||
+        content.includes(comments.fixme) ||
+        content.includes(comments.bug)
+      ) {
+        bugList.push(file)
       }
     }
   })
-  if (todoList.length > 0) {
-    if (config?.allowTodo == true) {
-      warn(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
+  if (bugList.length > 0) {
+    if (config?.allowComments == true) {
+      warn(`Founded ${bugList.length} comments in: \n\t${bugList.join('\n\t')}`)
     } else {
-      error(`Founded ${todoList.length} TODOs in: \n\t${todoList.join('\n\t')}`)
+      error(
+        `Founded ${bugList.length} comments in: \n\t${bugList.join('\n\t')}`
+      )
       process.exit(1)
     }
   } else {
-    info('No TODOs found.')
+    info('No comments found.')
   }
 }
