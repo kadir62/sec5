@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Version` check.
 - Information about `// TODO` check
 - Refactored `// TODO` check for performance
+- `Prettier` check.
 
 ## [0.1.0]
 
