@@ -3,8 +3,10 @@
   "type": "module",
   "scripts": {
     "dev": "rollup -c --watch",
-    "build": "node bin/sec5.js && rollup -c",
-    "build.force": "rollup -c"
+    "build": "prettier --write . && rollup -c",
+    "build.force": "rollup -c",
+    "check": "node bin/sec5.js",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",

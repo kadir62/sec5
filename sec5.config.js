@@ -1,9 +1,9 @@
 export default {
   /**
    * Allowed beacuse of `src/todoCheck.ts` and build (`bin/sec5.js`).
-   * The number of TODOs should not exceed 2.
+   * The number of comments should not exceed 2.
    */
-  allowTodo: true,
+  allowComments: true,
   allowNonWritedChangelog: false,
   allowNoVersion: false,
   allowNoFormat: false
