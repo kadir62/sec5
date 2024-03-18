@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Information about `// TODO` check
 - Refactored `// TODO` check for performance
 - `Prettier` check.
+- `// FIXME`, `// BUG` checks.
+
+### Changed
+
+- `// TODO` check merged with `// FIXME` and `// BUG` check.
+- `allowTodo` changed to `allowComments`
 
 ## [0.1.0]
 
