@@ -30,7 +30,7 @@ function readdir(dirPath: string, fileList: string[] = []): string[] {
 
 export default function check() {
   const files = readdir(process.cwd())
-  const bugList: string[] = []
+  const commnetList: string[] = []
   files.forEach((file) => {
     if (
       file.endsWith('.ts') ||
@@ -44,16 +44,22 @@ export default function check() {
         content.includes(comments.fixme) ||
         content.includes(comments.bug)
       ) {
-        bugList.push(file)
+        commnetList.push(file)
       }
     }
   })
-  if (bugList.length > 0) {
+  if (commnetList.length > 0) {
     if (config?.allowComments == true) {
-      warn(`Founded ${bugList.length} comments in: \n\t${bugList.join('\n\t')}`)
+      warn(
+        `Founded ${commnetList.length} comments in: \n\t${commnetList.join(
+          '\n\t'
+        )}`
+      )
     } else {
       error(
-        `Founded ${bugList.length} comments in: \n\t${bugList.join('\n\t')}`
+        `Founded ${commnetList.length} comments in: \n\t${commnetList.join(
+          '\n\t'
+        )}`
       )
       process.exit(1)
     }
