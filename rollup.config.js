@@ -9,5 +9,5 @@ export default defineConfig({
     format: 'esm'
   },
   plugins: [typescript(), terser()],
-  external: ['chalk', 'glob', 'node:path', 'node:fs']
+  external: ['chalk', 'glob', 'node:path', 'node:fs', 'node:child_process']
 })
