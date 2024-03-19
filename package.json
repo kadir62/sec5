@@ -1,6 +1,6 @@
 {
   "name": "sec5",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Make your workspace secure and safe without having problems",
   "license": "MIT",
   "main": "bin/sec5.js",

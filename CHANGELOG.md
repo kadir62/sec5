@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4]
+
+### Fixed
+
+- Error when trying to get `.gitignore` but `.gitignore` doesn't exist
+- Error when trying to get `CHANGELOG.md` but `CHANGELOG.md` doesn't exist
+
 ## [0.1.3]
 
 ### Added

@@ -63,6 +63,9 @@ function findMarkdownHeader(filePath: string = file): string {
 }
 
 export default function compareVersions() {
+  if (!file) {
+    return
+  }
   const header = findMarkdownHeader(file)
   const version = getVersion(header)
   if (version !== packageJson.version) {

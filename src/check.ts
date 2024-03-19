@@ -7,7 +7,24 @@ import info from './log/info'
 import includesAnyOfThem from './utils/includesAnyOfThem'
 
 const config = resolveConfig()
-const gitignore = fs.readFileSync(path.resolve(process.cwd(), '.gitignore'))
+let gitignore = ''
+
+try {
+  gitignore = fs
+    .readFileSync(path.resolve(process.cwd(), '.gitignore'))
+    .toString()
+} catch (err) {
+  if (
+    typeof err === 'object' &&
+    err !== null &&
+    'code' in err &&
+    err.code === 'ENOENT'
+  ) {
+    info('.gitignore file not found.')
+  } else if (typeof err === 'object' && err !== null && 'message' in err) {
+    warn('Error while reading .gitignore: \n\t' + err.message)
+  }
+}
 
 const comments = ['// TODO', '// FIXME', '// BUG']
 
