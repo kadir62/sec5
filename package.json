@@ -1,17 +1,22 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "prettier --write . && rollup -c",
     "build.force": "rollup -c",
     "check": "node bin/sec5.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.11.28",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "rollup": "^4.13.0",
     "tslib": "^2.6.2"
   },

@@ -7,7 +7,7 @@ export type Config = {
   allowComments: boolean
   allowNoVersion: boolean
   allowNoFormat: boolean
-  allowFixMe: boolean
+  allowNoLint: boolean
 }
 
 const pattern = [
@@ -21,13 +21,18 @@ const pattern = [
 
 const files = glob(pattern)
 
+let config: {
+  default?: Partial<Config>
+  config?: Partial<Config>
+}
+
 if (files.length === 0)
   warn('No config files found with this pattern: ' + pattern.join(', '))
 else {
   const file = files[0]
-  var config = await import(fileToPath(file))
+  config = await import(fileToPath(file))
 }
 
 export default function resolveConfig(): Partial<Config> | undefined {
-  return config.default || config.config
+  return config?.default || config?.config
 }
