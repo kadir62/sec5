@@ -4,11 +4,12 @@ import path from 'node:path'
 import error from './log/error'
 import warn from './log/warn'
 import info from './log/info'
+import includesAnyOfThem from './utils/includesAnyOfThem'
 
 const config = resolveConfig()
 const gitignore = fs.readFileSync(path.resolve(process.cwd(), '.gitignore'))
 
-const comments = { todo: '// TODO', fixme: '// FIXME', bug: '// BUG' }
+const comments = ['// TODO', '// FIXME', '// BUG']
 
 function readdir(dirPath: string, fileList: string[] = []): string[] {
   const files = fs.readdirSync(dirPath)
@@ -39,11 +40,7 @@ export default function check() {
       file.endsWith('.jsx')
     ) {
       const content = fs.readFileSync(file, 'utf-8')
-      if (
-        content.includes(comments.todo) ||
-        content.includes(comments.fixme) ||
-        content.includes(comments.bug)
-      ) {
+      if (includesAnyOfThem(comments, content)) {
         commnetList.push(file)
       }
     }

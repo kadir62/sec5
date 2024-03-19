@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3]
+
+### Added
+
+- `includesAnyOfThem` function for modularity.
+- Added `files` option in the `package.json` for more performance.
+
 ## [0.1.2]
 
 > **🎉 NOTE** <br />

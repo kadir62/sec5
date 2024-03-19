@@ -1,10 +1,13 @@
 {
   "name": "sec5",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Make your workspace secure and safe without having problems",
   "license": "MIT",
   "main": "bin/sec5.js",
   "bin": "bin/sec5.js",
+  "files": [
+    "bin"
+  ],
   "type": "module",
   "repository": {
     "type": "git",
