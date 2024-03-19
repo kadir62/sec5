@@ -9,10 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2]
 
+> **🎉 NOTE** <br />
+> This version is the first release of Sec5.
+
 ### Added
 
 - `Eslint` check
 - Information about `ESlint` check
+- More detailed `package.json`
 
 ### Fixed
 

@@ -1,6 +1,21 @@
 {
+  "name": "sec5",
   "version": "0.1.2",
+  "description": "Make your workspace secure and safe without having problems",
+  "license": "MIT",
+  "main": "bin/sec5.js",
+  "bin": "bin/sec5.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kadir62/sec5.git"
+  },
+  "homepage": "https://sec5.vercel.app",
+  "author": "Kadir Celik",
+  "keywords": [
+    "safe",
+    "secure"
+  ],
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "prettier --write . && rollup -c",
