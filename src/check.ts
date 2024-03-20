@@ -1,83 +1,48 @@
-import resolveConfig from './config/resolveConfig'
-import fs from 'node:fs'
-import path from 'node:path'
-import error from './log/error'
-import warn from './log/warn'
-import info from './log/info'
-import includesAnyOfThem from './utils/includesAnyOfThem'
+import resolveConfig, { Config } from './config/resolveConfig'
+import { error, warn, info } from './log'
+import { includesAnyOfThem } from './utils'
+import { readGitignore, readdir, readFileContent } from './utils/fileSystem'
 
-const config = resolveConfig()
-let gitignore = ''
+export default function check() {
+  const config = resolveConfig()
+  const gitignore = readGitignore()
+  const comments = ['// TODO', '// FIXME', '// BUG']
+  const files = readdir(process.cwd(), gitignore)
+  const commentList: string[] = []
 
-try {
-  gitignore = fs
-    .readFileSync(path.resolve(process.cwd(), '.gitignore'))
-    .toString()
-} catch (err) {
-  if (
-    typeof err === 'object' &&
-    err !== null &&
-    'code' in err &&
-    err.code === 'ENOENT'
-  ) {
-    info('.gitignore file not found.')
-  } else if (typeof err === 'object' && err !== null && 'message' in err) {
-    warn('Error while reading .gitignore: \n\t' + err.message)
+  files.forEach((file) => {
+    if (fileEndsWithValidExtension(file)) {
+      const content = readFileContent(file)
+      if (includesAnyOfThem(comments, content)) {
+        commentList.push(file)
+      }
+    }
+  })
+
+  if (commentList.length > 0) {
+    handleComments(commentList, config)
+  } else {
+    info('No comments found.')
   }
 }
 
-const comments = ['// TODO', '// FIXME', '// BUG']
-
-function readdir(dirPath: string, fileList: string[] = []): string[] {
-  const files = fs.readdirSync(dirPath)
-  files.forEach((file) => {
-    const filePath = path.join(dirPath, file)
-    const fileStat = fs.statSync(filePath)
-    if (fileStat.isDirectory()) {
-      if (filePath.includes('node_modules') === false) {
-        readdir(filePath, fileList)
-      }
-    } else {
-      if (gitignore.includes(file) === false) {
-        fileList.push(filePath)
-      }
-    }
-  })
-  return fileList
+function fileEndsWithValidExtension(file: string) {
+  return ['.ts', '.js', '.tsx', '.jsx'].some((ext) => file.endsWith(ext))
 }
 
-export default function check() {
-  const files = readdir(process.cwd())
-  const commnetList: string[] = []
-  files.forEach((file) => {
-    if (
-      file.endsWith('.ts') ||
-      file.endsWith('.js') ||
-      file.endsWith('.tsx') ||
-      file.endsWith('.jsx')
-    ) {
-      const content = fs.readFileSync(file, 'utf-8')
-      if (includesAnyOfThem(comments, content)) {
-        commnetList.push(file)
-      }
-    }
-  })
-  if (commnetList.length > 0) {
-    if (config?.allowComments == true) {
-      warn(
-        `Founded ${commnetList.length} comments in: \n\t${commnetList.join(
-          '\n\t'
-        )}`
-      )
-    } else {
-      error(
-        `Founded ${commnetList.length} comments in: \n\t${commnetList.join(
-          '\n\t'
-        )}`
-      )
-      process.exit(1)
-    }
+function handleComments(commentList: string[], config?: Partial<Config>) {
+  const { allowComments } = config || {
+    allowComments: false
+  }
+  const count = commentList.length
+  const message = `Founded ${count} comments in: \n\t${commentList.join(
+    '\n\t'
+  )}`
+
+  if (allowComments == true) {
+    warn(message)
   } else {
-    info('No comments found.')
+    error(message)
+    process.exit(1)
   }
 }

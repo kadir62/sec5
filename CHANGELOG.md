@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- The codes are seperated to functions and files for reability.
+
 ## [0.1.4]
 
 ### Fixed

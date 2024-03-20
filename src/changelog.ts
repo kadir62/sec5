@@ -8,25 +8,25 @@ import info from './log/info'
 
 const pattern = ['changelog.md', 'CHANGELOG.md']
 
-const files = glob(pattern, {
-  ignore: 'node_modules'
-})
-
-const file = files[0]
-
-const packageJson = (
-  await import(fileToPath('package.json'), {
-    assert: {
-      type: 'json'
-    }
+function findChangelogFile(pattern: string[]) {
+  const files = glob(pattern, {
+    ignore: 'node_modules'
   })
-).default
+  return files[0]
+}
 
-const config = resolveConfig()
+async function loadPackageJson(filePath: string) {
+  const packageJson = (
+    await import(fileToPath(filePath), {
+      assert: {
+        type: 'json'
+      }
+    })
+  ).default
+  return packageJson
+}
 
-const allowNonWritedChangelog = config?.allowNonWritedChangelog
-
-function getVersion(header: string): string {
+function getVersionFromHeader(header: string): string {
   return header
     .split('-')[0]
     .replaceAll('[', '')
@@ -35,7 +35,7 @@ function getVersion(header: string): string {
     .trim()
 }
 
-function findMarkdownHeader(filePath: string = file): string {
+function findMarkdownHeader(filePath: string): string {
   const regex = /^(##\s+.+)$/m
   const fileContent = fs.readFileSync(filePath, 'utf-8')
   const match = regex.exec(fileContent)
@@ -62,12 +62,19 @@ function findMarkdownHeader(filePath: string = file): string {
   return header
 }
 
-export default function compareVersions() {
-  if (!file) {
+export default async function compareVersions() {
+  const changelogFile = findChangelogFile(pattern)
+  if (!changelogFile) {
     return
   }
-  const header = findMarkdownHeader(file)
-  const version = getVersion(header)
+
+  const packageJson = await loadPackageJson('package.json')
+  const config = resolveConfig()
+  const allowNonWritedChangelog = config?.allowNonWritedChangelog
+
+  const header = findMarkdownHeader(changelogFile)
+  const version = getVersionFromHeader(header)
+
   if (version !== packageJson.version) {
     if (allowNonWritedChangelog) {
       warn(
