@@ -27,7 +27,9 @@ export default function check() {
 }
 
 function fileEndsWithValidExtension(file: string) {
-  return ['.ts', '.js', '.tsx', '.jsx'].some((ext) => file.endsWith(ext))
+  return ['.ts', '.js', '.tsx', '.jsx', '.mts', '.mjs', '.cts', '.cjs'].some(
+    (ext) => file.endsWith(ext)
+  )
 }
 
 function handleComments(commentList: string[], config?: Partial<Config>) {
