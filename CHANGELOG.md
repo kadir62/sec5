@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
 - The codes are seperated to functions and files for reability.
+- When lint check fails, output writed by `warn` instead of `error`.
 
 ## [0.1.4]
 

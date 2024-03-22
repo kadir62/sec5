@@ -20,8 +20,8 @@ export default function eslintCheck() {
         process.exit(1)
       }
     } else if (err) {
-      error('An error occurred during eslint check. Error:')
-      console.error('\t' + stderr)
+      warn('An error occurred during eslint check. Error:')
+      console.warn('\t' + stderr)
     } else {
       info('Codes are writed correctly for rules with eslint')
     }
