@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Module (`.mjs | .mts`) and Commonjs (`.cjs | .cts`) extension support
+
 ## [0.1.5]
 
 ### Changed
