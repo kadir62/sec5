@@ -5,7 +5,7 @@ import { defineConfig } from 'rollup'
 export default defineConfig({
   input: 'src/index.ts',
   output: {
-    file: 'bin/sec5.js',
+    file: 'bin/sec5.mjs',
     format: 'esm'
   },
   plugins: [typescript(), terser()],
