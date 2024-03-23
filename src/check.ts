@@ -4,6 +4,7 @@ import { includesAnyOfThem } from './utils'
 import { readGitignore, readdir, readFileContent } from './utils/fileSystem'
 
 export default function check() {
+  if (resolveConfig()?.ignoredChecks?.includes('comment')) return
   const config = resolveConfig()
   const gitignore = readGitignore()
   const comments = ['// TODO', '// FIXME', '// BUG']

@@ -11,6 +11,7 @@ const config = resolveConfig()
 const allowNoLint = config?.allowNoLint
 
 export default function eslintCheck() {
+  if (config?.ignoredChecks?.includes('eslint')) return
   exec(command, (err, _, stderr) => {
     if (err && stderr.toLowerCase().includes('✖')) {
       if (allowNoLint == true) {

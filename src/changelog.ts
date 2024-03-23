@@ -72,6 +72,8 @@ export default async function compareVersions() {
   const config = resolveConfig()
   const allowNonWritedChangelog = config?.allowNonWritedChangelog
 
+  if (config?.ignoredChecks?.includes('changelog')) return
+
   const header = findMarkdownHeader(changelogFile)
   const version = getVersionFromHeader(header)
 

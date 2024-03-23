@@ -16,6 +16,7 @@ const config = resolveConfig()
 const allowNoVersion = config?.allowNoVersion
 
 export default function versionCheck() {
+  if (config?.ignoredChecks?.includes('version')) return
   if (packageJson.version === null || packageJson.version === undefined) {
     if (allowNoVersion === true) {
       warn(

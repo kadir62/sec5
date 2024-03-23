@@ -11,6 +11,7 @@ const config = resolveConfig()
 const allowNoFormat = config?.allowNoFormat
 
 export default function prettierCheck() {
+  if (config?.ignoredChecks?.includes('prettier')) return
   exec(command, (err, _, stderr) => {
     if (err && stderr.toLowerCase().includes('run prettier to fix.')) {
       if (allowNoFormat == true) {

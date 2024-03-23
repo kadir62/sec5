@@ -8,6 +8,7 @@ export type Config = {
   allowNoVersion: boolean
   allowNoFormat: boolean
   allowNoLint: boolean
+  ignoredChecks: ('eslint' | 'prettier' | 'changelog' | 'version' | 'format' | 'comment')[]
 }
 
 const pattern = [
