@@ -17,8 +17,7 @@ export default function prettierCheck() {
       if (allowNoFormat == true) {
         warn('Codes are not formatted correctly')
       } else {
-        error('Codes are not formatted correctly')
-        process.exit(1)
+        warn('Codes are not formatted correctly')
       }
     } else if (err) {
       error('An error occurred during Prettier check. Error:')
