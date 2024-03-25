@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { info, warn } from '../log'
+import { warn } from '../log'
 
 export function readGitignore() {
   let gitignore = ''
@@ -15,7 +15,7 @@ export function readGitignore() {
       'code' in err &&
       err.code === 'ENOENT'
     ) {
-      info('.gitignore file not found.')
+      warn('.gitignore file not found.')
     } else if (typeof err === 'object' && err !== null && 'message' in err) {
       warn('Error while reading .gitignore: \n\t' + err.message)
     }
