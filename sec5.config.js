@@ -1,6 +1,8 @@
 export default {
-  allowComments: false,
   allowNonWritedChangelog: false,
+  allowComments: false,
   allowNoVersion: false,
-  allowNoFormat: false
+  allowNoFormat: false,
+  allowNoLint: false,
+  ignoredChecks: []
 }
