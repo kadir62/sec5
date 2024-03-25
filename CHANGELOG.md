@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Module (`.mjs | .mts`) and Commonjs (`.cjs | .cts`) extension support
 - `ignoredChecks` option for ignoring some checks.
 - A new minimalist logo. [Preview](https://i.imgur.com/gq3DFIV.png)
+- Comment check for JSDoc comments. (`/* */`)
+- More readable warn when no config file found.
 
 ### Changed
 
