@@ -8,7 +8,14 @@ export type Config = {
   allowNoVersion: boolean
   allowNoFormat: boolean
   allowNoLint: boolean
-  ignoredChecks: ('eslint' | 'prettier' | 'changelog' | 'version' | 'format' | 'comment')[]
+  ignoredChecks: (
+    | 'eslint'
+    | 'prettier'
+    | 'changelog'
+    | 'version'
+    | 'format'
+    | 'comment'
+  )[]
 }
 
 const pattern = [
@@ -28,7 +35,7 @@ let config: {
 }
 
 if (files.length === 0)
-  warn('No config files found with this pattern: ' + pattern.join(', '))
+  warn('No config files found with this pattern: ' + pattern.join(' | '))
 else {
   const file = files[0]
   config = await import(fileToPath(file))
