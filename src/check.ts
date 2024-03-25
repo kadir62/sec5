@@ -7,14 +7,23 @@ export default function check() {
   if (resolveConfig()?.ignoredChecks?.includes('comment')) return
   const config = resolveConfig()
   const gitignore = readGitignore()
-  const comments = ['// TODO', '// FIXME', '// BUG']
+  const comments = ['TODO', 'FIXME', 'BUG']
   const files = readdir(process.cwd(), gitignore)
   const commentList: string[] = []
 
   files.forEach((file) => {
     if (fileEndsWithValidExtension(file)) {
       const content = readFileContent(file)
-      if (includesAnyOfThem(comments, content)) {
+      if (
+        includesAnyOfThem(
+          comments.map((comment) => '//' + comment),
+          content
+        ) ||
+        includesAnyOfThem(
+          comments.map((comment) => '/*' + comment + '*/'),
+          content
+        )
+      ) {
         commentList.push(file)
       }
     }
